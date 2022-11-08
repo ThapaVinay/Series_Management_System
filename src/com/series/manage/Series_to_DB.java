@@ -1,14 +1,36 @@
 package com.series.manage;
-
 import java.sql.Connection;
-
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
 public class Series_to_DB {     
-     public  static boolean insert(Series s)
-     {
+    
+    public static boolean admin_check(String username, String password)
+    {
+        try{
+            Connection con = Create_CP.create();
+            String q = "Select * from users";
+            Statement st = con.createStatement();
+            ResultSet set = st.executeQuery(q);
+            while(set.next())
+            {
+                if(set.getString(2).equals(username) && set.getString(3).equals(password))
+                {
+                    return true;
+                }
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+
+    public  static boolean insert(Series s)
+    {
         boolean flag = false;
         try{
             Connection con = Create_CP.create();
@@ -27,10 +49,10 @@ public class Series_to_DB {
             System.out.println(e);
         }     
         return flag;
-     }
+    }
 
-     public static void display()
-     {
+    public static void display()
+    {
         try{
             Connection con = Create_CP.create();
             String q = "Select * from series";
@@ -46,11 +68,11 @@ public class Series_to_DB {
         {
             System.out.println(e);
         }
-     }
+    }
 
 
-     public static boolean delete(int id)
-     {
+    public static boolean delete(int id)
+    {
         boolean flag = true;
         try{
             Connection con = Create_CP.create();
@@ -66,5 +88,5 @@ public class Series_to_DB {
             System.out.println(e);
         }
         return flag;
-     }
+    }
 }

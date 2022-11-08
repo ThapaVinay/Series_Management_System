@@ -6,8 +6,21 @@ import com.series.manage.Series_to_DB;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        System.out.println("Welcome to Series Management System...");
         Scanner sc = Scan.create();
+        System.out.println("******* Enter your credentials *******");
+        System.out.print("Username :");
+        String username = sc.next();
+        System.out.print("Password :");
+        String password = sc.next();
+        
+        if(!Series_to_DB.admin_check(username, password))
+        {
+            System.out.println("Wrong Credentials .. You are not permitted ...");
+            return;
+        }
+
+        System.out.println("Welcome to Series Management System...");
+        
         while(true)
         {
             System.out.println("1. Add New Series ");
@@ -51,12 +64,7 @@ public class Main {
 
                 case 4:
                     return;
-
             }
-
-
-        }
-        
-        
+        } 
     }
 }
